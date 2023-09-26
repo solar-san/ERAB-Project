@@ -27,7 +27,7 @@ monofont: 'Fira Code'
 bibliography: GRA_ref.bib
 ---
 
-![](Header/GRA-Project_header.png)
+![](header/GRA-Project_header.png)
 
 ```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(
