@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="solar-san">
+
+<title>Gender and Risk Aversion</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="GRA_main_files/libs/clipboard/clipboard.min.js"></script>
+<script src="GRA_main_files/libs/quarto-html/quarto.js"></script>
+<script src="GRA_main_files/libs/quarto-html/popper.min.js"></script>
+<script src="GRA_main_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="GRA_main_files/libs/quarto-html/anchor.min.js"></script>
+<link href="GRA_main_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="GRA_main_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="GRA_main_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="GRA_main_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="GRA_main_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;family=Fira+Code&amp;display=swap" rel="stylesheet">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#preliminary-analytics" id="toc-preliminary-analytics" class="nav-link" data-scroll-target="#preliminary-analytics">Preliminary analytics</a>
+  <ul class="collapse">
+  <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The dataset</a></li>
+  <li><a href="#exploring-the-dataset" id="toc-exploring-the-dataset" class="nav-link" data-scroll-target="#exploring-the-dataset">Exploring the dataset</a>
+  <ul class="collapse">
+  <li><a href="#capofam-income-qf1" id="toc-capofam-income-qf1" class="nav-link" data-scroll-target="#capofam-income-qf1"><code>capofam</code>, <code>income</code>, <code>qf1</code></a></li>
+  <li><a href="#area5-edu" id="toc-area5-edu" class="nav-link" data-scroll-target="#area5-edu"><code>area5</code>, <code>edu</code></a></li>
+  <li><a href="#fk-age" id="toc-fk-age" class="nav-link" data-scroll-target="#fk-age"><code>FK</code>, <code>age</code></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
+  <ul class="collapse">
+  <li><a href="#measuring-risk-aversion" id="toc-measuring-risk-aversion" class="nav-link" data-scroll-target="#measuring-risk-aversion">Measuring risk aversion</a></li>
+  <li><a href="#choosing-a-proxy" id="toc-choosing-a-proxy" class="nav-link" data-scroll-target="#choosing-a-proxy">Choosing a proxy</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification">Model specification</a></li>
+  <li><a href="#learning-the-model" id="toc-learning-the-model" class="nav-link" data-scroll-target="#learning-the-model">Learning the model</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Gender and Risk Aversion</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>solar-san </p>
+          </div>
+  </div>
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">September 26, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<div style="page-break-after: always;"></div>
+<section id="introduction" class="level1 unnumbered page-columns page-full">
+<h1 class="unnumbered">Introduction</h1>
+<p>The following analysis will try to tackle a well-known topic, discussed and studied not only by economists but also by other social scientists, such as psychologists and sociologists.</p>
+<blockquote class="blockquote">
+<p><strong><em>Does gender influence risk aversion?</em></strong></p>
+</blockquote>
+<p>At a first glance, a superficial approach might consider the stereotypes that still shape and often curse our society and answer positively; for example, by stating that each gender has some innate characteristics that influence and even determine its behaviour and therefore differentiate, among other things, the attitudes against risk and financial opportunities. While this might eventually be the case, we should back this statement with a deeper insight, as only data can provide.</p>
+<p>It is therefore my intention to investigate further this topic, hopefully shedding some light on its complex and multi-faceted nature, by analysing Bank of Italy data about <em>adult financial literacy</em>, even if I am positive that I will only scratch its surface.</p>
+<p>To begin, the main question needs to be further specified in a subset of different questions:</p>
+<blockquote class="blockquote">
+<ol type="1">
+<li><em>Is gender actually influencing risk aversion or is it (just another) stereotype?</em></li>
+<li><em>Are gender differences statistically significant, when considering risky investments?</em></li>
+</ol>
+</blockquote>
+<p>Then, whether these questions are answered positively or not, we should ask:</p>
+<blockquote class="blockquote">
+<ol start="3" type="1">
+<li><em>Are there other influences at play? What if there are other determinants?</em></li>
+</ol>
+</blockquote>
+<p>A brief review of a subset of the relevant literature will help to clarify why I believe this aspect needs to be understood as a complex phenomenon and that simply relating <em>gender</em> to a specific attitude toward <em>risk</em> is a superficial explanation of a situation which is shaped by many different, powerful social forces. Thus, the initial hypothesis is that gender is a relevant predictor of risk aversion; however, I will test this by building an econometric model which will include a set of possible <em>influencing factors</em> which might lead to this result.</p>
+<p>The alternative to the main hypothesis leads to the consideration that there might be many socio-political and cultural forces at play and that there is a non null probability that the perception of women as more risk adverse influences their decisions, which could ultimately result in experimental evidence about a statistically significant confirmation of said hypothesis without actually clarifying whether it corresponds to the proverbial <em>egg or the chicken</em>. Certainly, being framed as belonging to a systematically more risk averse group influences a person’s choices, not only about investments but also about entrepreneurship and other aspects of life, with important consequences on income, wealth, and ultimately on well-being. For example, the individual attitude toward <em>risk</em> is a fundamental push when trying to understand economic behaviour, choices under uncertainty, and ultimately the determinants of <em>wealth</em>: “a consequence of this stereotype is statistical discrimination which diminishes the success of women in financial and labour markets.” <span class="citation" data-cites="jianakoplos1998women">(<a href="#ref-jianakoplos1998women" role="doc-biblioref">Jianakoplos and Bernasek 1998, 630</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-jianakoplos1998women" class="csl-entry" role="doc-biblioentry">
+Jianakoplos, Nancy Ammon, and Alexandra Bernasek. 1998. <span>“Are Women More Risk Averse?”</span> <em>Economic Inquiry</em> 36 (4): 620–30.
+</div></div><p>Different perception of risk are capable of defining the attitude of an individual toward financial markets profoundly and therefore his or hers access to the opportunities to properly invest his savings and participate in such markets, ultimately determining its financial behaviour, which might influence profoundly consumption in the later years of one’s life, after retirement. Indeed, “[…] to the extent that women exhibit greater risk aversion, this can help to explain women’s lower levels of wealth. Given women’s greater longevity and the increasing tendency towards self-directed pensions, greater risk aversion exhibited by women can have a significant impact on resources available to them in retirement.” <span class="citation" data-cites="jianakoplos1998women">(<a href="#ref-jianakoplos1998women" role="doc-biblioref">Jianakoplos and Bernasek 1998, 630</a>)</span>.</p>
+<p>The dataset used for the following analysis will allow to investigate the relationship between gender and risk aversion by exploring the financial literacy of Italian households and in particular their attitude toward risky investments.</p>
+</section>
+<section id="preliminary-analytics" class="level1 page-columns page-full">
+<h1>Preliminary analytics</h1>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="the-dataset" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-dataset">The dataset</h2>
+<div class="page-columns page-full"><p>The Bank of Italy has conducted two <a href="https://www.bancaditalia.it/statistiche/tematiche/indagini-famiglie-imprese/alfabetizzazione/index.html?com.dotmarketing.htmlpage.language=1">surveys on the financial literacy and competence of Italian adults</a> (<em>IACOFI</em>), one in 2017 and the other in 2020, based on the methodology developed by the OECD’s International Network on Financial Education (INFE). Raw data are available and the 2020 survey will be used to answer the main research question: in spite of the fact that they do not have a direct estimate of risk aversion, they still contain useful proxies for the attitude toward risky assets along with data on actual investment choices, such as <em>stocks</em> vis-à-vis <em>bonds</em>. Furthermore, several other variables will allow to observe the distributions of specific characteristics and condition the relevant phenomenon to control variables such as <em>income</em>, <em>age</em> and <em>being in charge of the financial decisions in a given household</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;The choice to invest in stocks does not matter if it has been made by someone else in the family.</p></li></div></div>
+</section>
+<section id="exploring-the-dataset" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="exploring-the-dataset">Exploring the dataset</h2>
+<div class="page-columns page-full"><p>Before testing the main hypothesis, exploring the data will help us understand the complexity of the topic and choose the set of relevant <em>control variables</em>. Each of the following section will start with one or more questions, followed by a brief explanation of the meaning of a variable taken from the dataset with plots<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and statistical summaries.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Weights have been used for every statistical graphic. Regressions do not include weights.</p></li></div></div>
+<section id="capofam-income-qf1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="capofam-income-qf1"><code>capofam</code>, <code>income</code>, <code>qf1</code></h3>
+<blockquote class="blockquote">
+<p><strong><em>How many women are the major recipient of income in a single household?</em></strong></p>
+</blockquote>
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-household" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="GRA_main_files/figure-html/fig-household-1.png" class="img-fluid figure-img" width="864"></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;1: The inequality is overwhelming; in particular, the proportion of males declaring that their wife is earning a larger income in the family is close to being invisible.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It is a well-known and documented fact that gender affects income, which is a major determinant of investment choices, as it creates both the possibility and the need to invest. A direct consequence of this fact is that more often than not the total household income is not earned in equal proportions and the person with the lion’s share is usually, as shown in <a href="#fig-household">Figure&nbsp;1</a>, the husband.</p>
+<p>This leads to another fundamental question: is the person with higher income in charge of managing the total amount of wealth deriving from such income? More specifically:</p>
+<blockquote class="blockquote">
+<p><strong><em>Who manages money in the household?</em></strong></p>
+</blockquote>
+<p>Even though either members of a family might have an income, the role of deciding its allocation, whether in savings, insurance, funds or stocks, is usually a concerned effort. Such decisions are highly influenced by the actual income flow, which directly affects the amount of efforts and care needed to manage money; however, are they also affected by gender?</p>
+<p>As shown in <a href="#fig-managingmoney">Figure&nbsp;3</a>, if the role of money-manager has to be played by a single member of the household, that member is usually the husband. The answers “<em>only me</em>” and “<em>someone else is</em> are complementary and as we can observe from the graph the proportion of males/females is inverted in each, with the former resulting mainly male dominated.</p>
+<p>Being income (and thus the capacity to accumulate wealth) the main driver of investments, we should also explore some of its main determinants: <em>education</em> and <em>geography.</em></p>
+</section>
+<section id="area5-edu" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="area5-edu"><code>area5</code>, <code>edu</code></h3>
+<p>Education needs to be considered as a factor with multiple influences: for each year spent pursuing a degree, there is a positive effect on income. Plotting education levels by area it is immediately evident that there are huge differences both regarding levels and geographic density (<a href="#fig-2">Figure&nbsp;2</a>).</p>
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-2" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="GRA_main_files/figure-html/fig-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;2: Number of persons by education level and geographic area in Italy.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<div class="cell-output-display column-page page-columns page-full">
+<div id="fig-managingmoney" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="GRA_main_files/figure-html/fig-managingmoney-1.png" class="img-fluid figure-img" width="960"></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;3: The answers to this specific question have been used as grouping variables on the x-axis, while on the y-axis there is a count of the responses for each answer. The grouping variable is a categorical representation of income levels. This plot allows to visualize the differences in gender and income of each responder. While most of households share this kind of decisions, the proportion of male/females grows higher when income increases.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<div class="cell-output-display page-columns page-full">
+<div id="fig-distr" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="GRA_main_files/figure-html/fig-distr-1.png" class="img-fluid figure-img" width="1152"></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;4: Densities of income (x-axis) by degree (grouping variable on the y-axis) and area (each density curve representing an Italian region). Living in the northern regions and having spent more years pursuing a degree consistently relates to higher income and less variability.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Italian geography and the inequalities among its main regions are therefore a heavy influence on both <em>education level</em> and <em>income</em> (which in itself influenced by <em>education</em>): this complex covariance and interrelation of factors is represented in <a href="#fig-distr">Figure&nbsp;4</a>, which visualises the distribution of income by education levels and geographic area.</p>
+<p>It is immediately evident that there is a feedback of information: less years spent studying result in lower incomes, but also being in the northern regions or in the central area of Italy systematically affect such distributions, with higher means (higher incomes), less left-skewness (the distribution is denser around the mean and the left tail trails off more quickly) and lower variability; the only notable exception is having a lower-secondary education but no degree, for which the southern regions outshine all the others.</p>
+<p>Conditioning the income by the area and educations reveals the profound inequalities which define the Italian economy: they should definitely be considered for their effect on risk aversion. On the one hand, while portfolio theory states that every individual should hold a non-null share of risky assets whenever there is a risk premium, the <em>asset allocation puzzle</em> confirm that this is not true empirically and that mostly the upper-percentile of wealthy individuals hold stocks and other form of risk in their portfolio. On the other hand, educations heavily influences the possibility to understand the basic numeracy and financial literature notions that would allow to confidently understand risk and returns.</p>
+</section>
+<section id="fk-age" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="fk-age"><code>FK</code>, <code>age</code></h3>
+<p>Financial literacy and numeracy might play a decisive role in shaping individual behaviour: <em>financial knowledge</em> is particularly interesting, which is defined as:</p>
+<blockquote class="blockquote page-columns page-full">
+<p><em>Financial knowledge is an important component of financial literacy for individuals to help them compare financial products and services and make appropriate, well-informed financial decisions. A basic knowledge of financial concepts and the ability to apply numeracy skills in a financial context, ensures that consumers can navigate with greater confidence financial matters and react to news and events that may have implications for their financial well-being.</em> <span class="citation" data-cites="organisation2020oecd">(<a href="#ref-organisation2020oecd" role="doc-biblioref">Economic Co-operation and Development 2020</a>)</span></p>
+<div class="no-row-height column-margin column-container"><div id="ref-organisation2020oecd" class="csl-entry" role="doc-biblioentry">
+Economic Co-operation, Organisation for, and Development. 2020. <span>“OECD/INFE 2020 International Survey of Adult Financial Literacy.”</span>
+</div></div></blockquote>
+<p>It is a <em>sine-qua-non condition</em> to develop awareness in risk preferences: first and foremost, it represents the understanding of the fundamental concepts of financial markets and basic economics.</p>
+<blockquote class="blockquote">
+<p><strong><em>Are gender and financial knowledge scores related?</em></strong></p>
+</blockquote>
+<p>Fitting a linear regression, using <em>age</em> and <em>education</em> as controlling variables, allows to investigate how and if financial knowledge is conditioned by these variables. Formally, given a specific individual <span class="math inline">i</span>, the following features can be defined:</p>
+<ul>
+<li><span class="math inline">\mathrm{FK}_i</span>: its financial knowledge score.</li>
+<li>age<span class="math inline">_i</span>: its age.</li>
+<li>edu<span class="math inline">_i</span>: education level (as a multi-level categorical variable).</li>
+<li>gender<span class="math inline">_i</span>: dummy variable, which can take value either 0 for <em>females</em> (base-line level) or 1 for <em>males</em>.</li>
+</ul>
+<p>The model can then be expressed as: <span class="math display">
+\tag{1}
+\mathrm{FK}_i = \alpha + \beta \times \mathrm{gender}_i + \gamma\times\mathrm{edu}_i +  \delta \times \mathrm{age}_i +\epsilon_i
+</span></p>
+<p>The most relevant aspect of this model is the <em>statistical significance</em> of each coefficient:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Statistical significance of regression for model (1):</caption>
+<colgroup>
+<col style="width: 45%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">1.1315565</td>
+<td style="text-align: right;">0.3882760</td>
+<td style="text-align: right;">2.914310</td>
+<td style="text-align: right;">0.0036055</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">genderMale</td>
+<td style="text-align: right;">0.2651639</td>
+<td style="text-align: right;">0.0918240</td>
+<td style="text-align: right;">2.887739</td>
+<td style="text-align: right;">0.0039231</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eduPrimary, with license</td>
+<td style="text-align: right;">1.5720545</td>
+<td style="text-align: right;">0.3427786</td>
+<td style="text-align: right;">4.586210</td>
+<td style="text-align: right;">0.0000048</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eduLower-secondary, without license</td>
+<td style="text-align: right;">1.3874398</td>
+<td style="text-align: right;">0.4959463</td>
+<td style="text-align: right;">2.797560</td>
+<td style="text-align: right;">0.0051997</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eduLower-secondary, with license</td>
+<td style="text-align: right;">2.1436012</td>
+<td style="text-align: right;">0.3257675</td>
+<td style="text-align: right;">6.580156</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eduUpper-secondary, no diploma</td>
+<td style="text-align: right;">2.4006961</td>
+<td style="text-align: right;">0.3737612</td>
+<td style="text-align: right;">6.423076</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eduUpper-secondary, with diploma</td>
+<td style="text-align: right;">2.6024108</td>
+<td style="text-align: right;">0.3246352</td>
+<td style="text-align: right;">8.016416</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eduPost-secondary or higher, with degree</td>
+<td style="text-align: right;">2.9327861</td>
+<td style="text-align: right;">0.3437305</td>
+<td style="text-align: right;">8.532224</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">0.0033914</td>
+<td style="text-align: right;">0.0030964</td>
+<td style="text-align: right;">1.095293</td>
+<td style="text-align: right;">0.2735238</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="page-columns page-full"><p>Most of the coefficients show a strong statistical significance<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and they all have a positive sign: financial knowledge, as expected, is increasing in education, with increasing effects for each level. <code>genderMale</code> is also significant and positive: this means that male respondents (being <em>female</em> the base-line case) have on average a better score than females. All this evidence points directly to the inclusion of these variables as <em>controls</em> in the final investigation on gender and risk aversion.</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;The F-statistic for the significance of the whole model is 15.723613, 8, 1945, while the adjusted <span class="math inline">R^2</span> is 0.0568812.</p></li></div></div>
+<p>While age is not statistically significant, it should be nevertheless included with in the final model, because the shifts in wealth consumption and risk attitude in the retirement years are expected to show a significant impact on risk-taking, as individuals move from risky assets to more liquid form of savings.</p>
+</section>
+</section>
+</section>
+<section id="methodology" class="level1 page-columns page-full">
+<h1>Methodology</h1>
+<section id="measuring-risk-aversion" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="measuring-risk-aversion">Measuring risk aversion</h2>
+<p>Risk aversion has been studied in different perspectives: economists, starting from the concept of utility, derived it from the notion of the <em>risk premium</em> (<span class="math inline">\Psi</span>). Given <span class="math inline">\sigma^2</span> the variability associated to a certain <em>risky</em> asset, <em>risk aversion</em> <span class="math inline">A(W)</span> is then: <span class="math display">
+\Psi = - \frac{1}{2} \frac{U''(W)}{U'(W)}\sigma^2= A(W) \frac {\sigma^2}{2}
+</span></p>
+<p>Risk aversion comes from individual preferences and is a parameter which defines the so-called Arrow-Pratt <em>absolute risk aversion</em>. Although it is possible to empirically measure an individual’s degree of <em>relative</em> risk aversion by computing how the percentage of their wealth invested in risky assets changes when their wealth increases <span class="citation" data-cites="bernasek2001gender">(<a href="#ref-bernasek2001gender" role="doc-biblioref">Bernasek and Shwiff 2001, 349</a>)</span>, detailed data about gender and the household financial decision-making process are needed.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-bernasek2001gender" class="csl-entry" role="doc-biblioentry">
+Bernasek, Alexandra, and Stephanie Shwiff. 2001. <span>“Gender, Risk, and Retirement.”</span> <em>Journal of Economic Issues</em> 35 (2): 345–56.
+</div></div><p>Moreover: “one of the major limitations of previous studies of gender and risk aversion is their inability to deal with the problem of who makes investment decisions in married and co-habiting couple households. If a female respondent who is married holds a risky portfolio of wealth, we do not know if this reflects her attitudes toward risk or her partner’s, or some combination.” <span class="citation" data-cites="bernasek2001gender">(<a href="#ref-bernasek2001gender" role="doc-biblioref">Bernasek and Shwiff 2001, 346</a>)</span>.</p>
+<p>The IACOFI dataset contains observations about who is in charge of investment decisions, but not detailed data about financial portfolios: in spite of this, data about financial choices can be used to build a <em>proxy variable</em> representing the attitude toward risk and investor’s preferences.</p>
+</section>
+<section id="choosing-a-proxy" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-a-proxy">Choosing a proxy</h2>
+<p>The responses to these questions can be used as a proxy for <em>risk aversion</em>:</p>
+<ol type="1">
+<li>“<strong><em>I am ready to risk a portion of my money when I am saving or investing</em></strong>”.</li>
+</ol>
+<ul>
+<li>The answer could be either <em>agree</em> or <em>disagree.</em></li>
+</ul>
+<ol start="2" type="1">
+<li>“<strong><em>Consider the following financial products and services. Have you personally underwritten one of them in the last two years?</em></strong>”.</li>
+</ol>
+<ul>
+<li>Among all products, there is the option “<em>Stocks or capital shares, listed or unlisted</em>”.</li>
+</ul>
+<ol start="3" type="1">
+<li>“<strong><em>Consider the following financial products and services. Have you personally underwritten one of them in the last two years?</em></strong>”.</li>
+</ol>
+<ul>
+<li>Among all products, there is the option “<em>Stocks or capital shares, listed or unlisted</em>”.</li>
+</ul>
+<p>To capture the meaning of risk aversion through the answer to these listed question, a new variable has been constructed, called <code>risk_proxy</code> or <span class="math inline">\rho_i</span>, where <span class="math inline">i</span> is a single respondent. It is a categorical variable which can take the following values: <span class="math display">
+\rho_i =
+\begin{cases}
+0 \quad \mathrm{I \ am \ NOT \ confident \ taking \ risks \ and \ I \ have \ NOT \ invested/I \ am \ NOT \ investing \ in \ the \ stock \ market. }\\
+1 \quad \mathrm{I \ am \ confident \ taking \ risks \ or \ I \ have \ invested/ I \ am \ investing \ in \ the \ stock \ market. }
+\end{cases}
+</span></p>
+<p>It is a variable built to assess both the <em>confidence in risk taking</em> and the actual <em>investment in risky assets</em>: even though this is only a proxy for <span class="math inline">A(W)</span>, if the main hypothesis holds true there should be nevertheless a negative relation between gender and investing in stocks and risk taking which approximate the effect of variable of interest.</p>
+<div class="cell">
+
+</div>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="model-specification" class="level2">
+<h2 class="anchored" data-anchor-id="model-specification">Model specification</h2>
+<p>This section will provide a test of the main research question:</p>
+<blockquote class="blockquote">
+<p><strong><em>Does gender influence risk aversion?</em></strong></p>
+</blockquote>
+<p>Which is translated in a <em>null hypothesis</em>: there is a <em>negative relation</em> between the two variables.</p>
+<p>In other words, the expectations are for the average level of risk aversion to be systematically lower for women: if this is true, statistically significant differences in the conditional distribution of the proxy variable for <em>risk aversion</em> to the <em>gender</em> variable should be observable and quantifiable as regression coefficients. To perform the test, a <em>logistic regression</em> has been chosen as the main econometric approach, as it gives explicit <em>p-values</em> for all predictor variables and also coefficients estimate of their effect on the response in the form of log-odds ratios.</p>
+<p>The model specification is the following: <span class="math display">
+\tag{2}
+\rho_i = \alpha + \beta \times \mathrm{gender}_i + {\Theta} \times \mathbf{X}_i + \epsilon_i
+</span></p>
+<p><span class="math inline">\mathbf{X}_i</span> is a <em>vector of controlling variables</em>, each with its own coefficient:</p>
+<ul>
+<li><code>capofam</code>, expressing whether the respondent is or not the major income percipient in the household.</li>
+<li><code>income</code>, for various income levels.</li>
+<li><code>qf1</code>, expressing whether the respondent is or not in charge of monetary decisions in the household.</li>
+<li><code>area5</code>, levels for the 5 Italian regions.</li>
+<li><code>edu</code>, possible levels of schooling and education.</li>
+<li><code>FK</code>, <em>numerical variable</em> for the <em>financial knowledge</em> scores.</li>
+<li><code>age</code>, <em>numerical variable</em> for the age of the respondent.</li>
+</ul>
+<p>If not expressly stated, the listed control variables are <em>categorical variables</em>.</p>
+</section>
+<section id="learning-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="learning-the-model">Learning the model</h2>
+<p>Fitting a logistic regression on the model yields the following coefficients, which are followed by their z-statistics and p-values:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Logistic regression estimated coefficients for model (2):</caption>
+<colgroup>
+<col style="width: 49%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">z value</th>
+<th style="text-align: right;">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-16.3971959</td>
+<td style="text-align: right;">1219.2849335</td>
+<td style="text-align: right;">-0.0134482</td>
+<td style="text-align: right;">0.9892702</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">capofamMy husband/wife is the head of the household.</td>
+<td style="text-align: right;">0.2668837</td>
+<td style="text-align: right;">0.4224676</td>
+<td style="text-align: right;">0.6317259</td>
+<td style="text-align: right;">0.5275660</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">capofamThe head of the household is another person.</td>
+<td style="text-align: right;">-0.4620976</td>
+<td style="text-align: right;">0.5287527</td>
+<td style="text-align: right;">-0.8739390</td>
+<td style="text-align: right;">0.3821515</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 440 - € 539</td>
+<td style="text-align: right;">-0.0732734</td>
+<td style="text-align: right;">1991.4071244</td>
+<td style="text-align: right;">-0.0000368</td>
+<td style="text-align: right;">0.9999706</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income€ 540 - € 644</td>
+<td style="text-align: right;">14.6453408</td>
+<td style="text-align: right;">1219.2844976</td>
+<td style="text-align: right;">0.0120114</td>
+<td style="text-align: right;">0.9904165</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 645 - € 749</td>
+<td style="text-align: right;">14.7130113</td>
+<td style="text-align: right;">1219.2842896</td>
+<td style="text-align: right;">0.0120669</td>
+<td style="text-align: right;">0.9903722</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income€ 750 - € 849</td>
+<td style="text-align: right;">14.0968748</td>
+<td style="text-align: right;">1219.2844901</td>
+<td style="text-align: right;">0.0115616</td>
+<td style="text-align: right;">0.9907754</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 850 - € 954</td>
+<td style="text-align: right;">0.3915947</td>
+<td style="text-align: right;">1365.6945186</td>
+<td style="text-align: right;">0.0002867</td>
+<td style="text-align: right;">0.9997712</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income€ 955 - € 1.059,00</td>
+<td style="text-align: right;">14.6610884</td>
+<td style="text-align: right;">1219.2841684</td>
+<td style="text-align: right;">0.0120243</td>
+<td style="text-align: right;">0.9904062</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 1.060,00 - € 1.159,00</td>
+<td style="text-align: right;">14.0628944</td>
+<td style="text-align: right;">1219.2841568</td>
+<td style="text-align: right;">0.0115337</td>
+<td style="text-align: right;">0.9907976</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income€ 1.160,00 - € 1.264,00</td>
+<td style="text-align: right;">14.2985369</td>
+<td style="text-align: right;">1219.2841323</td>
+<td style="text-align: right;">0.0117270</td>
+<td style="text-align: right;">0.9906434</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 1.265,00 - € 1.369,00</td>
+<td style="text-align: right;">14.1500052</td>
+<td style="text-align: right;">1219.2841298</td>
+<td style="text-align: right;">0.0116052</td>
+<td style="text-align: right;">0.9907406</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income€ 1.370,00 - € 1.549,00</td>
+<td style="text-align: right;">14.9015497</td>
+<td style="text-align: right;">1219.2840780</td>
+<td style="text-align: right;">0.0122216</td>
+<td style="text-align: right;">0.9902489</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 1.550,00 - € 1.939,00</td>
+<td style="text-align: right;">13.7728248</td>
+<td style="text-align: right;">1219.2841073</td>
+<td style="text-align: right;">0.0112958</td>
+<td style="text-align: right;">0.9909874</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">income€ 1.940,00 - E. 2.454,00</td>
+<td style="text-align: right;">13.8305379</td>
+<td style="text-align: right;">1219.2840903</td>
+<td style="text-align: right;">0.0113432</td>
+<td style="text-align: right;">0.9909497</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">income€ 2.455,00 - € 3.875,00</td>
+<td style="text-align: right;">13.7890486</td>
+<td style="text-align: right;">1219.2840962</td>
+<td style="text-align: right;">0.0113091</td>
+<td style="text-align: right;">0.9909768</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">incomeMore than € 3.875,00</td>
+<td style="text-align: right;">15.1118438</td>
+<td style="text-align: right;">1219.2840959</td>
+<td style="text-align: right;">0.0123940</td>
+<td style="text-align: right;">0.9901112</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">qf1Me along with my family.</td>
+<td style="text-align: right;">0.1979151</td>
+<td style="text-align: right;">1.0850325</td>
+<td style="text-align: right;">0.1824048</td>
+<td style="text-align: right;">0.8552651</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">qf1Only me.</td>
+<td style="text-align: right;">0.1265318</td>
+<td style="text-align: right;">1.0851717</td>
+<td style="text-align: right;">0.1166007</td>
+<td style="text-align: right;">0.9071765</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">qf1Someone else is.</td>
+<td style="text-align: right;">-0.5863301</td>
+<td style="text-align: right;">1.1588702</td>
+<td style="text-align: right;">-0.5059498</td>
+<td style="text-align: right;">0.6128919</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area5Sud</td>
+<td style="text-align: right;">-0.0105058</td>
+<td style="text-align: right;">0.4346910</td>
+<td style="text-align: right;">-0.0241685</td>
+<td style="text-align: right;">0.9807182</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area5Center</td>
+<td style="text-align: right;">0.3405593</td>
+<td style="text-align: right;">0.3984331</td>
+<td style="text-align: right;">0.8547464</td>
+<td style="text-align: right;">0.3926916</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area5Nord-est</td>
+<td style="text-align: right;">0.6361462</td>
+<td style="text-align: right;">0.4721407</td>
+<td style="text-align: right;">1.3473659</td>
+<td style="text-align: right;">0.1778624</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area5Nord-ovest</td>
+<td style="text-align: right;">0.8635625</td>
+<td style="text-align: right;">0.3850979</td>
+<td style="text-align: right;">2.2424494</td>
+<td style="text-align: right;">0.0249323</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eduPrimary, with license</td>
+<td style="text-align: right;">-0.9659282</td>
+<td style="text-align: right;">0.9172279</td>
+<td style="text-align: right;">-1.0530951</td>
+<td style="text-align: right;">0.2922974</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eduLower-secondary, without license</td>
+<td style="text-align: right;">-0.7303251</td>
+<td style="text-align: right;">1.2977173</td>
+<td style="text-align: right;">-0.5627768</td>
+<td style="text-align: right;">0.5735869</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eduLower-secondary, with license</td>
+<td style="text-align: right;">-1.1777204</td>
+<td style="text-align: right;">0.8613891</td>
+<td style="text-align: right;">-1.3672340</td>
+<td style="text-align: right;">0.1715520</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eduUpper-secondary, no diploma</td>
+<td style="text-align: right;">-1.8485571</td>
+<td style="text-align: right;">1.1115857</td>
+<td style="text-align: right;">-1.6629911</td>
+<td style="text-align: right;">0.0963142</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eduUpper-secondary, with diploma</td>
+<td style="text-align: right;">-1.0472196</td>
+<td style="text-align: right;">0.8666150</td>
+<td style="text-align: right;">-1.2084023</td>
+<td style="text-align: right;">0.2268925</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eduPost-secondary or higher, with degree</td>
+<td style="text-align: right;">-0.2300061</td>
+<td style="text-align: right;">0.8984364</td>
+<td style="text-align: right;">-0.2560071</td>
+<td style="text-align: right;">0.7979454</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FK</td>
+<td style="text-align: right;">0.0736098</td>
+<td style="text-align: right;">0.0613258</td>
+<td style="text-align: right;">1.2003076</td>
+<td style="text-align: right;">0.2300199</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">-0.0200775</td>
+<td style="text-align: right;">0.0096215</td>
+<td style="text-align: right;">-2.0867420</td>
+<td style="text-align: right;">0.0369115</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">genderMale</td>
+<td style="text-align: right;">0.3787489</td>
+<td style="text-align: right;">0.3506839</td>
+<td style="text-align: right;">1.0800292</td>
+<td style="text-align: right;">0.2801292</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The null and residual deviance of the model are respectively 696.776 and 621.854, while the AIC score is 687.854.</p>
+<p>It is evident that all variables do not show any statistical significance, with very high p-values, except <code>age</code> and the <code>edu</code> level “<em>upper-secondary, no diploma</em>” (which is borderline significant for a confidence level of 10%).</p>
+<p>Age has a negative effect on risk taking, which is a well known fact and is not surprising: risk-taking needs to decrease in the latter years of everyone life, since more liquid and less volatile form of financial wealth are necessary to maintain a steady consumption level after retirement.</p>
+<p>All these considerations and the summary of the fitted model allow to safely reject the main hypothesis: based on the analysis performed on the Bank of Italy <em>IACOFI</em> dataset, <em>gender does not have a statistically significant relation with risk aversion</em>, after a set of control variables is taken in consideration, for most confidence levels.</p>
+</section>
+</section>
+<section id="conclusions" class="level1 unnumbered page-columns page-full">
+<h1 class="unnumbered">Conclusions</h1>
+<div class="page-columns page-full"><p>The role of gender in shaping behaviour is complex and many social forces are at play. Even though the results presented in this report are not conclusive and they are not enough to falsify with absolute confidence the stereotype of women being more risk averse than men, they do find support in the economic literature: experimental evidence based on choices among different gambles and/or valuation of gambles<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> shows that while “the findings from field studies conclude that women are more risk averse than men […] the findings of laboratory experiments are, however, somewhat less conclusive. While the preponderance of laboratory evidence is consistent with field evidence, there is enough counter-evidence to warrant caution.” <span class="citation" data-cites="eckel2008men">(<a href="#ref-eckel2008men" role="doc-biblioref">Eckel and Grossman 2008, 1071</a>)</span>.</p><div class="no-row-height column-margin column-container"><li id="fn4"><p><sup>4</sup>&nbsp;In particular, abstract gamble experiments framed as stock investment problem.</p></li><div id="ref-eckel2008men" class="csl-entry" role="doc-biblioentry">
+Eckel, Catherine C, and Philip J Grossman. 2008. <span>“Men, Women and Risk Aversion: Experimental Evidence.”</span> <em>Handbook of Experimental Economics Results</em> 1: 1061–73.
+</div></div></div>
+<p>If we take other factors into account, the differences in risk preferences seem to disappear or become much less relevant: a main driver of investing is financial literacy, which is shaped by education and the opportunity to access the financial markets. In a highly relevant study, knowledge of finance has been demonstrated to mitigate the gender difference in financial risk-aversion:</p>
+<blockquote class="blockquote page-columns page-full">
+<p>“<em>We find that among highly educated individuals, women are significantly more risk averse than men. However, we find that when men and women have both attained a high level of financial education, they are equally likely to invest a significant portion of their portfolio in risky assets, suggesting that financial education mitigates the gender difference in financial risk aversion […] Most studies that find gender to be a significant determinant of risk aversion also find various proxies of the level of education to be significant. In addition, even when gender is insignificant, risk aversion has been found to be inversely related to the level of education.</em>” <span class="citation" data-cites="Hibbert2013does">(<a href="#ref-Hibbert2013does" role="doc-biblioref">Hibbert, Lawrence, and Prakash 2013, 140</a>)</span></p>
+<div class="no-row-height column-margin column-container"><div id="ref-Hibbert2013does" class="csl-entry" role="doc-biblioentry">
+Hibbert, Ann Marie, Edward R Lawrence, and Arun J Prakash. 2013. <span>“Does Knowledge of Finance Mitigate the Gender Difference in Financial Risk-Aversion?”</span> <em>Global Finance Journal</em> 24 (2): 140–52.
+</div></div></blockquote>
+<p>Considering again age as an influencing factor, its relevance can additionally be explained because of the cultural evolutions that occurred in most societies in the more-or-less recent past: scientific and financial education became more inclusive and the role of women in society has been redefined.</p>
+<blockquote class="blockquote page-columns page-full">
+<p>“<em>The second school of thought […] suggests sociocultural reasons for men taking greater risks than women. Early research […] noted that children are pressured during childhood (through peer pressure and social expectations) into behaving according to their cultural gender roles, which would result in a greater propensity for men to take risks. […] Women who took risks were looked down upon as unpopular whereas the opposite occurred for men. […] more restrictive parental monitoring of girls during childhood might explain their increased ability to resist taking part in risky behaviour in later life.</em> <em>[…] Such socio-political factors as power and status, which favour men, also lead to increased risk tolerance. Interestingly, some research suggests that social change-for example, the feminist movement of the 1960s and 1970s-has produced a change in female stereotypes and the attitudes of women toward risk. Research also indicates that this change has led to substantial increases in the number of female entrepreneurs and self-employed women.</em>” <span class="citation" data-cites="Watson2007gender">(<a href="#ref-Watson2007gender" role="doc-biblioref">Watson and McNaughton 2007</a>)</span></p>
+<div class="no-row-height column-margin column-container"><div id="ref-Watson2007gender" class="csl-entry" role="doc-biblioentry">
+Watson, John, and Mark McNaughton. 2007. <span>“Gender Differences in Risk Aversion and Expected Retirement Benefits.”</span> <em>Financial Analysts Journal</em> 63 (4): 52–62.
+</div></div></blockquote>
+<p>To summarise, studying economic behaviour is never a linear, simple path: social sciences need always to take into account the complexity of their subject of choice. A deeper understanding of the forces at play help to understand the empirical result and, hopefully, try to address any problematic stereotype by exposing its deeper roots: <em>education</em>, <em>age</em>, <em>income</em> and <em>economic opportunities</em>, <em>financial knowledge</em> and, at large, socio-cultural and political factors. The lack of a conclusive and significant relation in the IACOFI data between financial choices, such as investing in stocks, confidence toward risk and gender as long as we take into account the complexities of possible predictors of risk aversion is a strong result, hopefully showing that a stereotype more often than not is <em>just</em> a stereotype.</p>
+
+</section>
+
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
