@@ -53,6 +53,9 @@ div.csl-indent {
 <script src="GRA_main_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="GRA_main_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="GRA_main_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="GRA_main_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="GRA_main_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;family=Fira+Code&amp;display=swap" rel="stylesheet">
@@ -305,47 +308,150 @@ Economic Co-operation, Organisation for, and Development. 2020. <span>“OECD/IN
 \mathrm{FK}_i = \alpha + \beta \times \mathrm{gender}_i + \gamma\times\mathrm{edu}_i +  \delta \times \mathrm{age}_i +\epsilon_i
 </span></p>
 <p>The most relevant aspect of this model is the <em>statistical significance</em> of each coefficient:</p>
-<div class="cell" data-tbl-cap="Statistical significance of regression for model (1):">
-<div class="cell-output cell-output-stdout">
-<pre><code>                                            Estimate  Std. Error  t value
-(Intercept)                              1.131556468 0.388276001 2.914310
-genderMale                               0.265163856 0.091824040 2.887739
-eduPrimary, with license                 1.572054535 0.342778581 4.586210
-eduLower-secondary, without license      1.387439826 0.495946336 2.797560
-eduLower-secondary, with license         2.143601187 0.325767544 6.580156
-eduUpper-secondary, no diploma           2.400696120 0.373761155 6.423075
-eduUpper-secondary, with diploma         2.602410817 0.324635197 8.016416
-eduPost-secondary or higher, with degree 2.932786062 0.343730545 8.532224
-age                                      0.003391446 0.003096382 1.095293
-                                             Pr(&gt;|t|)
-(Intercept)                              3.605490e-03
-genderMale                               3.923095e-03
-eduPrimary, with license                 4.801115e-06
-eduLower-secondary, without license      5.199721e-03
-eduLower-secondary, with license         6.024425e-11
-eduUpper-secondary, no diploma           1.674319e-10
-eduUpper-secondary, with diploma         1.859996e-15
-eduPost-secondary or higher, with degree 2.841980e-17
-age                                      2.735238e-01</code></pre>
+<div class="cell">
+<div class="cell-output-display">
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:550px; overflow-x: scroll; width:800px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>Statistical significance of regression for model (1):</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">   </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Estimate </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Std. Error </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> t value </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Pr(&gt;|t|) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 1.1315565 </td>
+   <td style="text-align:right;"> 0.3882760 </td>
+   <td style="text-align:right;"> 2.914310 </td>
+   <td style="text-align:right;"> 0.0036055 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> genderMale </td>
+   <td style="text-align:right;"> 0.2651639 </td>
+   <td style="text-align:right;"> 0.0918240 </td>
+   <td style="text-align:right;"> 2.887739 </td>
+   <td style="text-align:right;"> 0.0039231 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduPrimary, with license </td>
+   <td style="text-align:right;"> 1.5720545 </td>
+   <td style="text-align:right;"> 0.3427786 </td>
+   <td style="text-align:right;"> 4.586210 </td>
+   <td style="text-align:right;"> 0.0000048 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduLower-secondary, without license </td>
+   <td style="text-align:right;"> 1.3874398 </td>
+   <td style="text-align:right;"> 0.4959463 </td>
+   <td style="text-align:right;"> 2.797560 </td>
+   <td style="text-align:right;"> 0.0051997 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduLower-secondary, with license </td>
+   <td style="text-align:right;"> 2.1436012 </td>
+   <td style="text-align:right;"> 0.3257675 </td>
+   <td style="text-align:right;"> 6.580156 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduUpper-secondary, no diploma </td>
+   <td style="text-align:right;"> 2.4006961 </td>
+   <td style="text-align:right;"> 0.3737612 </td>
+   <td style="text-align:right;"> 6.423076 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduUpper-secondary, with diploma </td>
+   <td style="text-align:right;"> 2.6024108 </td>
+   <td style="text-align:right;"> 0.3246352 </td>
+   <td style="text-align:right;"> 8.016416 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduPost-secondary or higher, with degree </td>
+   <td style="text-align:right;"> 2.9327861 </td>
+   <td style="text-align:right;"> 0.3437305 </td>
+   <td style="text-align:right;"> 8.532224 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> age </td>
+   <td style="text-align:right;"> 0.0033914 </td>
+   <td style="text-align:right;"> 0.0030964 </td>
+   <td style="text-align:right;"> 1.095293 </td>
+   <td style="text-align:right;"> 0.2735238 </td>
+  </tr>
+</tbody>
+</table></div>
+
 </div>
 </div>
 <div class="page-columns page-full"><p>Most of the coefficients show a strong statistical significance<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and they all have a positive sign: financial knowledge, as expected, is increasing in education, with increasing effects for each level. <code>genderMale</code> is also significant and positive: this means that male respondents (being <em>female</em> the base-line case) have on average a better score than females. All this evidence points directly to the inclusion of these variables as <em>controls</em> in the final investigation on gender and risk aversion. If we compute the correlations we see that a strong relation is nowhere to be found; hence, the data matrix of both model (1) and model (2) have a full rank.</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;The F-statistic for the significance of the whole model is 15.723613, 8, 1945, while the adjusted <span class="math inline">R^2</span> is 0.0568812.</p></li></div></div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>                            [,1]
-cor(gender, edu)     0.008973072
-cor(gender, age)     0.010483295
-cor(gender, FK)      0.060653846
-cor(gender, income)  0.022862359
-cor(gender, area)   -0.011559137
-cor(edu, age)        0.010483295
-cor(edu, FK)         0.060653846
-cor(edu, income)     0.022862359
-cor(edu, area)      -0.011559137
-cor(FK, age)         0.010483295
-cor(FK, income)      0.022862359
-cor(FK, area)       -0.011559137
-cor(income, area)   -0.011559137</code></pre>
+<div class="cell-output-display">
+
+<div style="border: 1px solid #ddd; padding: 5px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;"> cor(gender, edu) </td>
+   <td style="text-align:right;"> 0.0089731 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(gender, age) </td>
+   <td style="text-align:right;"> 0.0104833 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(gender, FK) </td>
+   <td style="text-align:right;"> 0.0606538 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(gender, income) </td>
+   <td style="text-align:right;"> 0.0228624 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(gender, area) </td>
+   <td style="text-align:right;"> -0.0115591 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(edu, age) </td>
+   <td style="text-align:right;"> 0.0104833 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(edu, FK) </td>
+   <td style="text-align:right;"> 0.0606538 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(edu, income) </td>
+   <td style="text-align:right;"> 0.0228624 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(edu, area) </td>
+   <td style="text-align:right;"> -0.0115591 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(FK, age) </td>
+   <td style="text-align:right;"> 0.0104833 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(FK, income) </td>
+   <td style="text-align:right;"> 0.0228624 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(FK, area) </td>
+   <td style="text-align:right;"> -0.0115591 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cor(income, area) </td>
+   <td style="text-align:right;"> -0.0115591 </td>
+  </tr>
+</tbody>
+</table></div>
+
 </div>
 </div>
 <p>While age is not statistically significant, it should be nevertheless included with in the final model, because the shifts in wealth consumption and risk attitude in the retirement years are expected to show a significant impact on risk-taking, as individuals move from risky assets to more liquid form of savings.</p>
@@ -434,76 +540,255 @@ Bernasek, Alexandra, and Stephanie Shwiff. 2001. <span>“Gender, Risk, and Reti
 <section id="learning-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="learning-the-model">Learning the model</h2>
 <p>Fitting a logistic regression on the model yields the following coefficients, which are followed by their z-statistics and p-values:</p>
-<div class="cell" data-tbl-cap="Logistic regression estimated coefficients for model (2):">
-<div class="cell-output cell-output-stdout">
-<pre><code>                                                         Estimate   Std. Error
-(Intercept)                                          -16.39719595 1.219285e+03
-capofamMy husband/wife is the head of the household.   0.26688370 4.224676e-01
-capofamThe head of the household is another person.   -0.46209763 5.287527e-01
-income€ 440 - € 539                                   -0.07327341 1.991407e+03
-income€ 540 - € 644                                   14.64534081 1.219284e+03
-income€ 645 - € 749                                   14.71301127 1.219284e+03
-income€ 750 - € 849                                   14.09687478 1.219284e+03
-income€ 850 - € 954                                    0.39159471 1.365695e+03
-income€ 955 - € 1.059,00                              14.66108841 1.219284e+03
-income€ 1.060,00 - € 1.159,00                         14.06289439 1.219284e+03
-income€ 1.160,00 - € 1.264,00                         14.29853685 1.219284e+03
-income€ 1.265,00 - € 1.369,00                         14.15000522 1.219284e+03
-income€ 1.370,00 - € 1.549,00                         14.90154971 1.219284e+03
-income€ 1.550,00 - € 1.939,00                         13.77282480 1.219284e+03
-income€ 1.940,00 - E. 2.454,00                        13.83053786 1.219284e+03
-income€ 2.455,00 - € 3.875,00                         13.78904858 1.219284e+03
-incomeMore than € 3.875,00                            15.11184378 1.219284e+03
-qf1Me along with my family.                            0.19791514 1.085032e+00
-qf1Only me.                                            0.12653179 1.085172e+00
-qf1Someone else is.                                   -0.58633014 1.158870e+00
-area5Sud                                              -0.01050583 4.346910e-01
-area5Center                                            0.34055929 3.984331e-01
-area5Nord-est                                          0.63614623 4.721407e-01
-area5Nord-ovest                                        0.86356252 3.850979e-01
-eduPrimary, with license                              -0.96592819 9.172279e-01
-eduLower-secondary, without license                   -0.73032515 1.297717e+00
-eduLower-secondary, with license                      -1.17772039 8.613891e-01
-eduUpper-secondary, no diploma                        -1.84855710 1.111586e+00
-eduUpper-secondary, with diploma                      -1.04721961 8.666150e-01
-eduPost-secondary or higher, with degree              -0.23000606 8.984364e-01
-FK                                                     0.07360977 6.132576e-02
-age                                                   -0.02007753 9.621471e-03
-genderMale                                             0.37874885 3.506839e-01
-                                                           z value   Pr(&gt;|z|)
-(Intercept)                                          -1.344821e-02 0.98927021
-capofamMy husband/wife is the head of the household.  6.317259e-01 0.52756603
-capofamThe head of the household is another person.  -8.739390e-01 0.38215147
-income€ 440 - € 539                                  -3.679479e-05 0.99997064
-income€ 540 - € 644                                   1.201142e-02 0.99041650
-income€ 645 - € 749                                   1.206692e-02 0.99037222
-income€ 750 - € 849                                   1.156160e-02 0.99077539
-income€ 850 - € 954                                   2.867367e-04 0.99977122
-income€ 955 - € 1.059,00                              1.202434e-02 0.99040620
-income€ 1.060,00 - € 1.159,00                         1.153373e-02 0.99079762
-income€ 1.160,00 - € 1.264,00                         1.172699e-02 0.99064343
-income€ 1.265,00 - € 1.369,00                         1.160517e-02 0.99074062
-income€ 1.370,00 - € 1.549,00                         1.222156e-02 0.99024885
-income€ 1.550,00 - € 1.939,00                         1.129583e-02 0.99098742
-income€ 1.940,00 - E. 2.454,00                        1.134316e-02 0.99094966
-income€ 2.455,00 - € 3.875,00                         1.130914e-02 0.99097681
-incomeMore than € 3.875,00                            1.239403e-02 0.99011125
-qf1Me along with my family.                           1.824048e-01 0.85526505
-qf1Only me.                                           1.166007e-01 0.90717648
-qf1Someone else is.                                  -5.059498e-01 0.61289188
-area5Sud                                             -2.416851e-02 0.98071820
-area5Center                                           8.547464e-01 0.39269156
-area5Nord-est                                         1.347366e+00 0.17786241
-area5Nord-ovest                                       2.242449e+00 0.02493234
-eduPrimary, with license                             -1.053095e+00 0.29229741
-eduLower-secondary, without license                  -5.627768e-01 0.57358690
-eduLower-secondary, with license                     -1.367234e+00 0.17155198
-eduUpper-secondary, no diploma                       -1.662991e+00 0.09631422
-eduUpper-secondary, with diploma                     -1.208402e+00 0.22689255
-eduPost-secondary or higher, with degree             -2.560071e-01 0.79794539
-FK                                                    1.200308e+00 0.23001992
-age                                                  -2.086742e+00 0.03691146
-genderMale                                            1.080029e+00 0.28012919</code></pre>
+<div class="cell">
+<div class="cell-output-display">
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:1000px; overflow-x: scroll; width:800px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>Logistic regression estimated coefficients for model (2):</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">   </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Estimate </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Std. Error </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> z value </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Pr(&gt;|z|) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> -16.3971959 </td>
+   <td style="text-align:right;"> 1219.2849335 </td>
+   <td style="text-align:right;"> -0.0134482 </td>
+   <td style="text-align:right;"> 0.9892702 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> capofamMy husband/wife is the head of the household. </td>
+   <td style="text-align:right;"> 0.2668837 </td>
+   <td style="text-align:right;"> 0.4224676 </td>
+   <td style="text-align:right;"> 0.6317259 </td>
+   <td style="text-align:right;"> 0.5275660 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> capofamThe head of the household is another person. </td>
+   <td style="text-align:right;"> -0.4620976 </td>
+   <td style="text-align:right;"> 0.5287527 </td>
+   <td style="text-align:right;"> -0.8739390 </td>
+   <td style="text-align:right;"> 0.3821515 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 440 - € 539 </td>
+   <td style="text-align:right;"> -0.0732734 </td>
+   <td style="text-align:right;"> 1991.4071244 </td>
+   <td style="text-align:right;"> -0.0000368 </td>
+   <td style="text-align:right;"> 0.9999706 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 540 - € 644 </td>
+   <td style="text-align:right;"> 14.6453408 </td>
+   <td style="text-align:right;"> 1219.2844976 </td>
+   <td style="text-align:right;"> 0.0120114 </td>
+   <td style="text-align:right;"> 0.9904165 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 645 - € 749 </td>
+   <td style="text-align:right;"> 14.7130113 </td>
+   <td style="text-align:right;"> 1219.2842896 </td>
+   <td style="text-align:right;"> 0.0120669 </td>
+   <td style="text-align:right;"> 0.9903722 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 750 - € 849 </td>
+   <td style="text-align:right;"> 14.0968748 </td>
+   <td style="text-align:right;"> 1219.2844901 </td>
+   <td style="text-align:right;"> 0.0115616 </td>
+   <td style="text-align:right;"> 0.9907754 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 850 - € 954 </td>
+   <td style="text-align:right;"> 0.3915947 </td>
+   <td style="text-align:right;"> 1365.6945186 </td>
+   <td style="text-align:right;"> 0.0002867 </td>
+   <td style="text-align:right;"> 0.9997712 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 955 - € 1.059,00 </td>
+   <td style="text-align:right;"> 14.6610884 </td>
+   <td style="text-align:right;"> 1219.2841684 </td>
+   <td style="text-align:right;"> 0.0120243 </td>
+   <td style="text-align:right;"> 0.9904062 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 1.060,00 - € 1.159,00 </td>
+   <td style="text-align:right;"> 14.0628944 </td>
+   <td style="text-align:right;"> 1219.2841568 </td>
+   <td style="text-align:right;"> 0.0115337 </td>
+   <td style="text-align:right;"> 0.9907976 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 1.160,00 - € 1.264,00 </td>
+   <td style="text-align:right;"> 14.2985369 </td>
+   <td style="text-align:right;"> 1219.2841323 </td>
+   <td style="text-align:right;"> 0.0117270 </td>
+   <td style="text-align:right;"> 0.9906434 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 1.265,00 - € 1.369,00 </td>
+   <td style="text-align:right;"> 14.1500052 </td>
+   <td style="text-align:right;"> 1219.2841298 </td>
+   <td style="text-align:right;"> 0.0116052 </td>
+   <td style="text-align:right;"> 0.9907406 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 1.370,00 - € 1.549,00 </td>
+   <td style="text-align:right;"> 14.9015497 </td>
+   <td style="text-align:right;"> 1219.2840780 </td>
+   <td style="text-align:right;"> 0.0122216 </td>
+   <td style="text-align:right;"> 0.9902489 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 1.550,00 - € 1.939,00 </td>
+   <td style="text-align:right;"> 13.7728248 </td>
+   <td style="text-align:right;"> 1219.2841073 </td>
+   <td style="text-align:right;"> 0.0112958 </td>
+   <td style="text-align:right;"> 0.9909874 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 1.940,00 - E. 2.454,00 </td>
+   <td style="text-align:right;"> 13.8305379 </td>
+   <td style="text-align:right;"> 1219.2840903 </td>
+   <td style="text-align:right;"> 0.0113432 </td>
+   <td style="text-align:right;"> 0.9909497 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> income€ 2.455,00 - € 3.875,00 </td>
+   <td style="text-align:right;"> 13.7890486 </td>
+   <td style="text-align:right;"> 1219.2840962 </td>
+   <td style="text-align:right;"> 0.0113091 </td>
+   <td style="text-align:right;"> 0.9909768 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> incomeMore than € 3.875,00 </td>
+   <td style="text-align:right;"> 15.1118438 </td>
+   <td style="text-align:right;"> 1219.2840959 </td>
+   <td style="text-align:right;"> 0.0123940 </td>
+   <td style="text-align:right;"> 0.9901112 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> qf1Me along with my family. </td>
+   <td style="text-align:right;"> 0.1979151 </td>
+   <td style="text-align:right;"> 1.0850325 </td>
+   <td style="text-align:right;"> 0.1824048 </td>
+   <td style="text-align:right;"> 0.8552651 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> qf1Only me. </td>
+   <td style="text-align:right;"> 0.1265318 </td>
+   <td style="text-align:right;"> 1.0851717 </td>
+   <td style="text-align:right;"> 0.1166007 </td>
+   <td style="text-align:right;"> 0.9071765 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> qf1Someone else is. </td>
+   <td style="text-align:right;"> -0.5863301 </td>
+   <td style="text-align:right;"> 1.1588702 </td>
+   <td style="text-align:right;"> -0.5059498 </td>
+   <td style="text-align:right;"> 0.6128919 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> area5Sud </td>
+   <td style="text-align:right;"> -0.0105058 </td>
+   <td style="text-align:right;"> 0.4346910 </td>
+   <td style="text-align:right;"> -0.0241685 </td>
+   <td style="text-align:right;"> 0.9807182 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> area5Center </td>
+   <td style="text-align:right;"> 0.3405593 </td>
+   <td style="text-align:right;"> 0.3984331 </td>
+   <td style="text-align:right;"> 0.8547464 </td>
+   <td style="text-align:right;"> 0.3926916 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> area5Nord-est </td>
+   <td style="text-align:right;"> 0.6361462 </td>
+   <td style="text-align:right;"> 0.4721407 </td>
+   <td style="text-align:right;"> 1.3473659 </td>
+   <td style="text-align:right;"> 0.1778624 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> area5Nord-ovest </td>
+   <td style="text-align:right;"> 0.8635625 </td>
+   <td style="text-align:right;"> 0.3850979 </td>
+   <td style="text-align:right;"> 2.2424494 </td>
+   <td style="text-align:right;"> 0.0249323 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduPrimary, with license </td>
+   <td style="text-align:right;"> -0.9659282 </td>
+   <td style="text-align:right;"> 0.9172279 </td>
+   <td style="text-align:right;"> -1.0530951 </td>
+   <td style="text-align:right;"> 0.2922974 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduLower-secondary, without license </td>
+   <td style="text-align:right;"> -0.7303251 </td>
+   <td style="text-align:right;"> 1.2977173 </td>
+   <td style="text-align:right;"> -0.5627768 </td>
+   <td style="text-align:right;"> 0.5735869 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduLower-secondary, with license </td>
+   <td style="text-align:right;"> -1.1777204 </td>
+   <td style="text-align:right;"> 0.8613891 </td>
+   <td style="text-align:right;"> -1.3672340 </td>
+   <td style="text-align:right;"> 0.1715520 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduUpper-secondary, no diploma </td>
+   <td style="text-align:right;"> -1.8485571 </td>
+   <td style="text-align:right;"> 1.1115857 </td>
+   <td style="text-align:right;"> -1.6629911 </td>
+   <td style="text-align:right;"> 0.0963142 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduUpper-secondary, with diploma </td>
+   <td style="text-align:right;"> -1.0472196 </td>
+   <td style="text-align:right;"> 0.8666150 </td>
+   <td style="text-align:right;"> -1.2084023 </td>
+   <td style="text-align:right;"> 0.2268925 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eduPost-secondary or higher, with degree </td>
+   <td style="text-align:right;"> -0.2300061 </td>
+   <td style="text-align:right;"> 0.8984364 </td>
+   <td style="text-align:right;"> -0.2560071 </td>
+   <td style="text-align:right;"> 0.7979454 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> FK </td>
+   <td style="text-align:right;"> 0.0736098 </td>
+   <td style="text-align:right;"> 0.0613258 </td>
+   <td style="text-align:right;"> 1.2003076 </td>
+   <td style="text-align:right;"> 0.2300199 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> age </td>
+   <td style="text-align:right;"> -0.0200775 </td>
+   <td style="text-align:right;"> 0.0096215 </td>
+   <td style="text-align:right;"> -2.0867420 </td>
+   <td style="text-align:right;"> 0.0369115 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> genderMale </td>
+   <td style="text-align:right;"> 0.3787489 </td>
+   <td style="text-align:right;"> 0.3506839 </td>
+   <td style="text-align:right;"> 1.0800292 </td>
+   <td style="text-align:right;"> 0.2801292 </td>
+  </tr>
+</tbody>
+</table></div>
+
 </div>
 </div>
 <p>The null and residual deviance of the model are respectively 696.776 and 621.854, while the AIC score is 687.854.</p>
