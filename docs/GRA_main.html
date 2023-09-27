@@ -311,15 +311,15 @@ Economic Co-operation, Organisation for, and Development. 2020. <span>“OECD/IN
 <div class="cell">
 <div class="cell-output-display">
 
-<div style="border: 1px solid #ddd; padding: 5px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:550px; overflow-x: scroll; width:800px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>Statistical significance of regression for model (1):</caption>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Std. Error </th>
-   <th style="text-align:right;"> t value </th>
-   <th style="text-align:right;"> Pr(&gt;|t|) </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">   </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Estimate </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Std. Error </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> t value </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Pr(&gt;|t|) </th>
   </tr>
  </thead>
 <tbody>
@@ -492,11 +492,17 @@ Bernasek, Alexandra, and Stephanie Shwiff. 2001. <span>“Gender, Risk, and Reti
 <ul>
 <li>Among all products, there is the option “<em>Stocks or capital shares, listed or unlisted</em>”.</li>
 </ul>
-<p>To capture the meaning of risk aversion through the answer to these listed question, a new variable has been constructed, called <code>risk_proxy</code> or <span class="math inline">\rho_i</span>, where <span class="math inline">i</span> is a single respondent. It is a categorical variable which can take the following values: <span class="math display">
+<p>To capture the meaning of risk aversion through the answer to these listed question, a new variable has been constructed, called <code>risk_proxy</code> or <span class="math inline">\rho_i</span>, where <span class="math inline">i</span> is a single respondent. Given the following cases:</p>
+<blockquote class="blockquote">
+<p><strong><em>Case 1</em></strong>: I am NOT confident taking risks and I have NOT invested/I am NOT investing in the stock market.</p>
+<p><strong><em>Case 2</em></strong>: I am confident taking risks or I have invested/ I am investing in the stock market.</p>
+</blockquote>
+<p>We can encode them as a categorical variable that can take the following values:</p>
+<p><span class="math display">
 \rho_i =
 \begin{cases}
-0 \quad \mathrm{I \ am \ NOT \ confident \ taking \ risks \ and \ I \ have \ NOT \ invested/I \ am \ NOT \ investing \ in \ the \ stock \ market. }\\
-1 \quad \mathrm{I \ am \ confident \ taking \ risks \ or \ I \ have \ invested/ I \ am \ investing \ in \ the \ stock \ market. }
+0 \quad \mathrm{\to Case \ 1}\\
+1 \quad \mathrm{\to Case \ 2}
 \end{cases}
 </span></p>
 <p>It is a variable built to assess both the <em>confidence in risk taking</em> and the actual <em>investment in risky assets</em>: even though this is only a proxy for <span class="math inline">A(W)</span>, if the main hypothesis holds true there should be nevertheless a negative relation between gender and investing in stocks and risk taking which approximate the effect of variable of interest.</p>
@@ -537,15 +543,15 @@ Bernasek, Alexandra, and Stephanie Shwiff. 2001. <span>“Gender, Risk, and Reti
 <div class="cell">
 <div class="cell-output-display">
 
-<div style="border: 1px solid #ddd; padding: 5px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:1000px; overflow-x: scroll; width:800px; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>Logistic regression estimated coefficients for model (2):</caption>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Estimate </th>
-   <th style="text-align:right;"> Std. Error </th>
-   <th style="text-align:right;"> z value </th>
-   <th style="text-align:right;"> Pr(&gt;|z|) </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">   </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Estimate </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Std. Error </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> z value </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Pr(&gt;|z|) </th>
   </tr>
  </thead>
 <tbody>

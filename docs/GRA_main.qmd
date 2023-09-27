@@ -685,7 +685,9 @@ kableExtra::scroll_box(
     kableExtra::kable_styling(
       "striped", 
       full_width = F
-    )
+    ),
+  height = "550px",
+  width = "800px"
 )
 ```
 
@@ -748,12 +750,19 @@ The responses to these questions can be used as a proxy for *risk aversion*:
 3. "***Consider the following financial products and services. Have you personally underwritten one of them in the last two years?***".
   + Among all products, there is the option "*Stocks or capital shares, listed or unlisted*".
 
-To capture the meaning of risk aversion through the answer to these listed question, a new variable has been constructed, called `risk_proxy` or $\rho_i$, where $i$ is a single respondent. It is a categorical variable which can take the following values:
+To capture the meaning of risk aversion through the answer to these listed question, a new variable has been constructed, called `risk_proxy` or $\rho_i$, where $i$ is a single respondent. Given the following cases:
+
+> ___Case 1___: I am NOT confident taking risks and I have NOT invested/I am NOT investing in the stock market.
+>
+> ___Case 2___: I am confident taking risks or I have invested/ I am investing in the stock market. 
+
+We can encode them as a categorical variable that can take the following values:
+
 $$
 \rho_i = 
 \begin{cases}
-0 \quad \mathrm{I \ am \ NOT \ confident \ taking \ risks \ and \ I \ have \ NOT \ invested/I \ am \ NOT \ investing \ in \ the \ stock \ market. }\\
-1 \quad \mathrm{I \ am \ confident \ taking \ risks \ or \ I \ have \ invested/ I \ am \ investing \ in \ the \ stock \ market. }
+0 \quad \mathrm{\to Case \ 1}\\
+1 \quad \mathrm{\to Case \ 2}
 \end{cases}
 $$
 
@@ -829,7 +838,9 @@ kableExtra::scroll_box(
     kableExtra::kable_styling(
       "striped", 
       full_width = F
-    )
+    ),
+  height = "1000px",
+  width = "800px"
 )
 ```
 
