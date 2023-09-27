@@ -674,15 +674,41 @@ fit.sel <- lm(
   FK ~ gender + edu + age,
   data = iacofi_data
   )
-knitr::kable(
-  fit.sel %>% 
-  summary() %>% 
-  coefficients(),
-  caption = "Statistical significance of regression for model (1):"
+
+kableExtra::scroll_box(
+  knitr::kable(
+    fit.sel %>% 
+    summary() %>% 
+    coefficients(),
+    caption = "Statistical significance of regression for model (1):"
+  )
 )
 ```
 
-Most of the coefficients show a strong statistical significance^[The F-statistic for the significance of the whole model is `r fit.sel %>% summary() %>% '$' ('fstatistic')`, while the adjusted $R^2$ is `r fit.sel %>% summary() %>% '$' ('adj.r.squared')`.] and they all have a positive sign: financial knowledge, as expected, is increasing in education, with increasing effects for each level. `genderMale` is also significant and positive: this means that male respondents (being *female* the base-line case) have on average a better score than females. All this evidence points directly to the inclusion of these variables as *controls* in the final investigation on gender and risk aversion. 
+Most of the coefficients show a strong statistical significance^[The F-statistic for the significance of the whole model is `r fit.sel %>% summary() %>% '$' ('fstatistic')`, while the adjusted $R^2$ is `r fit.sel %>% summary() %>% '$' ('adj.r.squared')`.] and they all have a positive sign: financial knowledge, as expected, is increasing in education, with increasing effects for each level. `genderMale` is also significant and positive: this means that male respondents (being *female* the base-line case) have on average a better score than females. All this evidence points directly to the inclusion of these variables as *controls* in the final investigation on gender and risk aversion. If we compute the correlations we see that a strong relation is nowhere to be found; hence, the data matrix of both model (1) and model (2)  have a full rank.
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(tibble(
+    "cor(gender, edu)" = cor(iacofi_full$qd1, iacofi_full$edu),
+    "cor(gender, age)" = cor(iacofi_full$qd7, iacofi_full$qd1),
+    "cor(gender, FK)" = cor(iacofi_full$qd1, iacofi_full$FK),
+    "cor(gender, income)" =cor(iacofi_full$qd1, iacofi_full$reddito),
+    "cor(gender, area)" =cor(iacofi_full$qd1, iacofi_full$area),
+    "cor(edu, age)" = cor(iacofi_full$qd7, iacofi_full$qd1),
+    "cor(edu, FK)" = cor(iacofi_full$qd1, iacofi_full$FK),
+    "cor(edu, income)" =cor(iacofi_full$qd1, iacofi_full$reddito),
+    "cor(edu, area)" =cor(iacofi_full$qd1, iacofi_full$area),
+    "cor(FK, age)" = cor(iacofi_full$qd7, iacofi_full$qd1),
+    "cor(FK, income)" =cor(iacofi_full$qd1, iacofi_full$reddito),
+    "cor(FK, area)" =cor(iacofi_full$qd1, iacofi_full$area),
+    "cor(income, area)" =cor(iacofi_full$qd1, iacofi_full$area)
+  ) %>% 
+  t 
+  )
+)
+```
+
 
 While age is not statistically significant, it should be nevertheless included with in the final model, because the shifts in wealth consumption and risk attitude in the retirement years are expected to show a significant impact on risk-taking, as individuals move from risky assets to more liquid form of savings.
 
@@ -751,7 +777,7 @@ In other words, the expectations are for the average level of risk aversion to b
 The model specification is the following:
 $$
 \tag{2}
-\rho_i = \alpha + \beta \times \mathrm{gender}_i + {\Theta} \times \mathbf{X}_i + \epsilon_i
+\rho_i = \alpha + \beta \times \mathrm{gender}_i + \mathbf{X}_i \times{\Theta} + \epsilon_i
 $$
 
 $\mathbf{X}_i$ is a *vector of controlling variables*, each with its own coefficient:
@@ -784,11 +810,13 @@ fit.logi <- glm(
   family = binomial
   )
 
-knitr::kable(
-  fit.logi %>% 
-    summary() %>% 
-    coefficients(),
-  caption = "Logistic regression estimated coefficients for model (2):"
+kableExtra::scroll_box(
+  knitr::kable(
+    fit.logi %>% 
+      summary() %>% 
+      coefficients(),
+    caption = "Logistic regression estimated coefficients for model (2):"
+  )
 )
 ```
 
