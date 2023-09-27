@@ -18,6 +18,7 @@ format:
     footnotes-hover: true
     citation-location: margin
     reference-location: margin
+    image: "header/GRA-Project_header.png"
     header-includes: |
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
