@@ -4,7 +4,7 @@ author: "solar-san"
 date-modified: "2023-09-26"
 format:
   html:
-    theme: github
+    theme: slate
     toc: true
     toc-location: left
     fig-align: center
