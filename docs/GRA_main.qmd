@@ -6,8 +6,9 @@ format:
   html:
     theme: github
     toc: true
-    toc-location: left
+    toc-location: right
     fig-align: center
+    fig-cap-location: margin
     fig-width: 8
     fig-height: 8
     html-math-method: katex
@@ -16,8 +17,8 @@ format:
     highlight-style: breeze
     citations-hover: true
     footnotes-hover: true
-    citation-location: margin
     reference-location: margin
+    citation-location: margin
     header-includes: |
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -434,6 +435,7 @@ Before testing the main hypothesis, exploring the data will help us understand t
 ```{r household head plot, fig.width=9, fig.height=4}
 #| fig-cap: The inequality is overwhelming; \n in particular, the proportion of males declaring that their wife is earning a larger income in the family is close to being invisible.
 #| fig-cap-location: margin
+#| column: page-left
 #| label: fig-household
 iacofi_data %>% 
   ggplot(
@@ -492,6 +494,7 @@ Education needs to be considered as a factor with multiple influences: for each 
 ```{r education distribution, fig.width=7, fig.height=5}
 #| fig-cap: Number of persons by education level and geographic area in Italy.
 #| fig-cap-location: margin
+#| column: page-left
 #| label: fig-2
 iacofi_data %>%
   filter(!is.na(edu)) %>% 
@@ -536,7 +539,7 @@ iacofi_data %>%
 ```{r money managing plot, fig.height=12, fig.width=10}
 #| fig-cap: The answers to this specific question have been used as grouping variables on the x-axis, while on the y-axis there is a count of the responses for each answer. The grouping variable is a categorical representation of income levels. This plot allows to visualize the differences in gender and income of each responder. While most of households share this kind of decisions, the proportion of male/females grows higher when income increases.
 #| fig-cap-location: margin
-#| column: page
+#| column: page-left
 #| label: fig-managingmoney
 iacofi_data %>% 
   filter(!is.na(qf1))%>%
@@ -595,6 +598,7 @@ iacofi_data %>%
 ```{r distribution of income, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
 #| fig-cap: Densities of income (x-axis) by degree (grouping variable on the y-axis) and area (each density curve representing an Italian region). Living in the northern regions and having spent more years pursuing a degree consistently relates to higher income and less variability.
 #| fig-cap-location: margin
+#| column: page-left
 #| label: fig-distr
 iacofi_data %>%
   filter(
